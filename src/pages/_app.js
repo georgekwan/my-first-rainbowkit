@@ -8,6 +8,11 @@ const { chains, provider } = configureChains(
   [publicProvider()]
 );
 
+const { connectors } = getDefaultWallets({
+  appName: 'RainbowKit Demo',
+  chains,
+});
+
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
