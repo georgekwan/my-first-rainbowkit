@@ -6,7 +6,8 @@ export default function Home() {
     <>
       <Head></Head>
       <main>
-        <h1>Basic Next.js App</h1>
+        <h1>My First RainbowKit Button</h1>
+        <ConnectButton />
       </main>
     </>
   );
