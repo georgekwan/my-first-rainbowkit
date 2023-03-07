@@ -7,7 +7,7 @@ export default function Home() {
       <Head></Head>
       <main>
         <h1>My First RainbowKit Button</h1>
-        <ConnectButton />
+        <ConnectButton accountStatus="address" />
       </main>
     </>
   );
