@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function Home() {
   return (
