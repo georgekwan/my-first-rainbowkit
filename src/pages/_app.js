@@ -19,6 +19,18 @@ import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
+const rainbow = ({ chains }) => ({
+  id: 'rainbow',
+  name: 'Rainbow',
+  iconUrl: '/rainbow.png',
+  iconBackground: '#0c2f78',
+  downloadUrls: {
+    android: 'https://play.google.com/store/apps/details?id=me.rainbow',
+    ios: 'https://apps.apple.com/us/app/rainbow-ethereum-wa11et/id14S7119@21',
+    qrcode: 'https://rainbow.download',
+  },
+});
+
 // Set up chain and provider
 const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
@@ -31,7 +43,6 @@ const connectors = connectorsForWallets([
     wallets: [
       metaMaskWallet({ chains }),
       ledgerWallet({ chains }),
-      rainbowWallet({ chains }),
       walletConnectWallet({ chains }),
     ],
   },
