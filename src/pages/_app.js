@@ -1,8 +1,17 @@
 import '@rainbow-me/rainbowkit/styles.css';
 import {
+  metaMaskWallet,
+  ledgerWallet,
+  rainbowWallet,
+  walletConnectWallet,
+  coinbaseWallet,
+  trustWallet,
+  imTokenWallet,
+} from '@rainbow-me/rainbowkit/wallets';
+import {
   getDefaultWallets,
   connectorsForWallets,
-  Wallet,
+  wallet,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
@@ -16,13 +25,23 @@ const { chains, provider } = configureChains(
   [publicProvider()]
 );
 
-connectorsForWallets([
+const connectors = connectorsForWallets([
   {
-    groupName: 'Popular',
-    wallets: [wallet.rainbow({ chains })],
-    wallets: [wallet.metaMask({ chains })],
-    wallets: [wallet.argent({ chains })],
-    wallets: [wallet.ledger({ chains })],
+    groupName: 'Recommended',
+    wallets: [
+      metaMaskWallet({ chains }),
+      ledgerWallet({ chains }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains }),
+    ],
+  },
+  {
+    groupName: 'Other',
+    wallets: [
+      trustWallet({ chains }),
+      coinbaseWallet({ chains }),
+      imTokenWallet({ chains }),
+    ],
   },
 ]);
 
