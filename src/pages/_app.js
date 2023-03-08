@@ -3,7 +3,6 @@ import {
   metaMaskWallet,
   ledgerWallet,
   rainbowWallet,
-  walletConnectWallet,
   coinbaseWallet,
   trustWallet,
   imTokenWallet,
@@ -11,7 +10,6 @@ import {
 import {
   getDefaultWallets,
   connectorsForWallets,
-  wallet,
   RainbowKitProvider,
   getWalletConnectConnector,
 } from '@rainbow-me/rainbowkit';
@@ -23,22 +21,49 @@ import { publicProvider } from 'wagmi/providers/public';
 const rainbow = ({ chains }) => ({
   id: 'rainbow',
   name: 'Rainbow',
-  iconUrl: '/rainbow.png',
+  iconUrl: './rainbow.png',
   iconBackground: '#0c2f78',
   downloadUrls: {
     android: 'https://play.google.com/store/apps/details?id=me.rainbow',
-    ios: 'https://apps.apple.com/us/app/rainbow-ethereum-wa11et/id14S7119@21',
-    qrcode: 'https://rainbow.download',
+    ios: 'https://apps.apple.com/ca/app/rainbow-ethereum-wallet/id1457119021',
+    qrCode: 'https://rainbow.download',
   },
   createConnector: () => {
     const connector = getWalletConnectConnector({ chains });
     return {
       connector,
       mobile: {
-        getUri: async () => (await connector.getProvider()).connector.uri,
+        getUri: async () => {
+          const { uri } = (await connector.getProvider()).connector;
+          return uri;
+        },
       },
       qrcode: {
         getUri: async () => (await connector.getProvider()).connector.uri,
+        instructions: {
+          learnMoreUrl:
+            'https://learn.rainbow.me/connect-your-wallet-to-a-website-or-app',
+          steps: [
+            {
+              description:
+                'We recommend putting Rainbow on your home screen for faster access to your wallet.',
+              step: 'install',
+              title: 'Open the Rainbow app',
+            },
+            {
+              description:
+                'You can easily backup your wallet using our backup feature on your phone.',
+              step: 'create',
+              title: 'Create or Import a Wallet',
+            },
+            {
+              description:
+                'After you scan, a connection prompt will appear for you to connect your wallet.',
+              step: 'scan',
+              title: 'Tap the scan button',
+            },
+          ],
+        },
       },
     };
   },
@@ -57,7 +82,6 @@ const connectors = connectorsForWallets([
       rainbow({ chains }),
       metaMaskWallet({ chains }),
       ledgerWallet({ chains }),
-      walletConnectWallet({ chains }),
     ],
   },
   {
