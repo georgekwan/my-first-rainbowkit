@@ -16,7 +16,15 @@ const { chains, provider } = configureChains(
   [publicProvider()]
 );
 
-connectorsForWallets([{}]);
+connectorsForWallets([
+  {
+    groupName: 'Popular',
+    wallets: [wallet.rainbow({ chains })],
+    wallets: [wallet.metaMask({ chains })],
+    wallets: [wallet.argent({ chains })],
+    wallets: [wallet.ledger({ chains })],
+  },
+]);
 
 // Set up wallet
 // const { connectors } = getDefaultWallets({
