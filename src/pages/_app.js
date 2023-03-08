@@ -13,6 +13,7 @@ import {
   connectorsForWallets,
   wallet,
   RainbowKitProvider,
+  getWalletConnectConnector,
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
@@ -29,6 +30,18 @@ const rainbow = ({ chains }) => ({
     ios: 'https://apps.apple.com/us/app/rainbow-ethereum-wa11et/id14S7119@21',
     qrcode: 'https://rainbow.download',
   },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({ chains });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => (await connector.getProvider()).connector.uri,
+      },
+      qrcode: {
+        getUri: async () => (await connector.getProvider()).connector.uri,
+      },
+    };
+  },
 });
 
 // Set up chain and provider
@@ -41,6 +54,7 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
+      rainbow({ chains }),
       metaMaskWallet({ chains }),
       ledgerWallet({ chains }),
       walletConnectWallet({ chains }),
